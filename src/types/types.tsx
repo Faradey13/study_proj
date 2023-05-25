@@ -1,5 +1,5 @@
 export interface IPost {
-    id: number;
+    id: string;
     title: string;
     body: string;
 }
@@ -8,4 +8,9 @@ export interface IComment {
     name: string;
     email: string;
     body: string;
+}
+export interface IFilter {
+    sort?: keyof IPost | undefined
+    query?: keyof IPost | undefined
+
 }
