@@ -1,7 +1,10 @@
+import React from "react";
+
 export interface IPost {
     id: string;
     title: string;
     body: string;
+
 }
 export interface IComment {
     id: number;
@@ -12,5 +15,8 @@ export interface IComment {
 export interface IFilter {
     sort?: keyof IPost | undefined
     query?: keyof IPost | undefined
+
+}
+export interface IFunc {
 
 }

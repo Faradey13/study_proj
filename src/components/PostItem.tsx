@@ -2,19 +2,29 @@ import React, {FC} from 'react';
 import {IPost} from "../types/types";
 import MyButton from "./UI/Button/MyButton";
 
+export interface PostItemProps {
 
-const PostItem: FC<IPost> = ({id, title, body}) => {
+    title: string;
+    body: string;
+    post: IPost
+    number: number;
+
+    remove?: (arg0: IPost) => void;
+}
+
+const PostItem: FC<PostItemProps> = ({ title, body,  remove, post,number }) => {
+
     return (
         <div  className='post'>
             <div className='post_content'>
-                <div>
-                    {id}.{title}
-                </div>
+                <h1>
+                    {number}.{title}
+                </h1>
                 <div>{body}</div>
             </div>
             <div>
-                <MyButton children={'Открыть'}/>
-                <MyButton children={'Удалить'}/>
+                <MyButton  children={'Открыть'}/>
+                <MyButton onClick={()=> remove && remove(post)} children={'Удалить'}/>
             </div>
         </div>
     );

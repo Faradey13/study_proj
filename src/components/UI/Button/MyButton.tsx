@@ -5,11 +5,12 @@ children: React.ReactNode;
 className? : string;
 
 
+
 }
-const MyButton:FC<MyButtonProps> = ({children}) => {
+const MyButton:FC<MyButtonProps> = ({children,onClick}) => {
     return (
 
-            <button className={classes.my_button}>
+            <button onClick={onClick} className={classes.my_button}>
                 {children}
             </button>
 

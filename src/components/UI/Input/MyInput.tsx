@@ -9,7 +9,7 @@ interface MyInputProps extends InputHTMLAttributes<HTMLInputElement>{}
 
 const MyInput:FC<MyInputProps> = ({placeholder,value, type, onChange}) => {
     return (
-        <input className={cl.input} type={type} placeholder={placeholder}/>
+        <input onChange={event => onChange && onChange(event)} className={cl.input} type={type} placeholder={placeholder}/>
 
     );
 };

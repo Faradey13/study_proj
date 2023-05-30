@@ -3,9 +3,9 @@ import {FC, useMemo} from "react";
 
 interface usePostProps {
     posts: IPost[];
-    sort?: keyof  IPost | undefined
+    sort?: keyof  IPost
     query?: string
-    ''?: string
+
 
 }
 
@@ -16,16 +16,17 @@ export const useSortedPost = ({posts, sort}:usePostProps) => {
             return [...posts].sort((a, b) => a[sort].localeCompare(b[sort]))
         }
         return posts
-    },[posts, sort])
+    },[sort, posts])
 
     return sortedPosts
 }
 export const usePosts  = ({sort, query, posts}:usePostProps) => {
     const sortedPost = useSortedPost({posts, sort})
 
-    const searchedAndSortedPost = useMemo(()=>{
+    const searchedAndSortedPost  = useMemo(()=>{
         if (query)
-    return sortedPost.filter(post => post.title.toLowerCase().includes(query.toLowerCase()))
+        {return sortedPost.filter(post => post.title.toLowerCase().includes(query.toLowerCase()))}
+        return sortedPost
     },[query, sortedPost])
 
     return searchedAndSortedPost

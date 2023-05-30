@@ -13,7 +13,7 @@ interface MySelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 const MySelect:FC<MySelectProps> = ({defaultValue, options, value, onChange}) => {
 
     return (
-        <select value={value} onChange={ (event) => {onChange && onChange(event)}}>
+        <select style={{width: '200px', color: 'teal'}} value={value} onChange={ (event) => {onChange && onChange(event)}}>
             <option value="">{defaultValue}</option>
             {options.map(option=> <option key={option.value} value={option.value}>{option.name}</option>)}
         </select>

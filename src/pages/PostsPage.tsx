@@ -1,19 +1,27 @@
 import React, {FC, useEffect, useState} from 'react';
 import {IFilter, IPost} from "../types/types";
-import ListRender from "../components/ListRender";
-import PostItem from "../components/PostItem";
+
+
 import PostService from "../API/PostService";
-import MyInput from "../components/UI/Input/MyInput";
-import MySelect from "../components/UI/Select/MySelect";
+
 import {usePosts} from "../components/hooks/usePosts";
+import Filter from "../components/Filter";
+import MyButton from "../components/UI/Button/MyButton";
+import PostForm from "../components/postForm";
+import PostList from "../components/PostList";
+import Modal from "../components/UI/Modal/modal";
+import Loader from "../components/UI/Loader/Loader";
 
 const PostsPage: FC = () => {
     const [posts, setPosts] = useState<IPost[]>([])
     const  [filter, setFilter] = useState<IFilter>({sort: undefined, query: undefined})
+    const [modal, setModal] = useState<boolean>(false)
+
 
 
 
     const searchedAndSortedPosts = usePosts({sort: filter.sort, query: filter.query, posts: posts})
+
 
     const fetchPosts = async () => {
         const response = await PostService.getAll()
@@ -25,31 +33,25 @@ const PostsPage: FC = () => {
     },[])
 
 
-    console.log(filter)
+    const removePost = (post: IPost)   => {
+        setPosts(posts.filter(p => p.id !== post.id))
+    }
+
+    const createPost:(arg0: IPost)=> void= (newPost) => {
+        setPosts([...posts, newPost])
+        setModal(false)
+    }
 
     return (
         <div>
-            <MyInput
-                placeholder={'Поиск...'}
-                value={filter.query}
-                onChange={e => setFilter({...filter, query: e.target.value as keyof IPost})}
-            />
-            <MySelect
+          <Filter filter={filter} setFilter={setFilter} />
+            <Modal visible={modal} setVisible={setModal} children={<PostForm create={createPost}/>}/>
 
-                defaultValue={'поиск по'}
-                options={[{value: 'title', name: 'по заголовку'},
-                    {value: 'body', name: 'по содержимому'},
-                ]}
-                onChange={selectedSort =>
+            <Loader/>
 
-                    setFilter({...filter, sort: selectedSort.target.value as keyof IPost})
+            <MyButton onClick={() => setModal(true)} children={"Создать пост"}/>
 
-                }
-
-                />
-            <ListRender item={posts}
-                        renderItem={(post) => <PostItem id={post.id} key={post.id} title={post.title}
-                                                        body={post.body}/>}/>
+            <PostList remove={removePost} posts={searchedAndSortedPosts} title={"Список постов"}/>
 
         </div>
     );
