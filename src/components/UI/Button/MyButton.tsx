@@ -7,7 +7,7 @@ className? : string;
 
 
 }
-const MyButton:FC<MyButtonProps> = ({children,onClick}) => {
+const MyButton:FC<MyButtonProps> = ({children,onClick, className}) => {
     return (
 
             <button onClick={onClick} className={classes.my_button}>
@@ -18,3 +18,4 @@ const MyButton:FC<MyButtonProps> = ({children,onClick}) => {
 };
 
 export default MyButton;
+

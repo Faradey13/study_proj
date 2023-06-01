@@ -17,6 +17,18 @@ export interface IFilter {
     query?: keyof IPost | undefined
 
 }
-export interface IFunc {
+export interface IComment {
+    email : string
+    body:string
+
+}
+
+export interface IContext {
+    isAuth: boolean;
+    isLoading: boolean;
+    setIsAuth: React.Dispatch<boolean>;
+    setIsLoading: React.Dispatch<boolean>;
+
+
 
 }

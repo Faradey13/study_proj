@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 
 
+type TUseFetchingReturnType = [()=> Promise<void>, boolean, string|undefined]
 
-
-export const useFetching = (callback: Promise<void>) => {
+export const useFetching = (callback: ()=> void):TUseFetchingReturnType => {
     const[isLoading, setIsLoading] = useState<boolean>(false)
     const[error, setError] = useState('')
 
