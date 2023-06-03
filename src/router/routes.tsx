@@ -4,7 +4,7 @@ import About from "../pages/About";
 import {RouteProps} from "react-router-dom";
 import PostById from "../pages/PostById";
 import Login from "../pages/Login";
-import {pickPage} from "../util/router";
+
 
 type privateType =  {private: boolean}
 export enum AppRoute {
@@ -71,6 +71,3 @@ export const routeConfigPublic:Record<AppRoutePublic, RouteProps> = {
         element: <Login/>,}
 }
 
-// export const routeConfigPublic1:Record<AppRoutePublic, privateType & RouteProps> =
-//     Object.fromEntries((Object.entries(routeConfig).filter(
-//         ([key, value]) => value.private)))

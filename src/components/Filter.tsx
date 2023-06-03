@@ -3,13 +3,13 @@ import MyInput from "./UI/Input/MyInput";
 import {IFilter, IPost} from "../types/types";
 import MySelect from "./UI/Select/MySelect";
 
-interface filterProps {
+interface FilterProps {
     query?: string
     filter: IFilter
     setFilter: React.Dispatch<React.SetStateAction<IFilter>>
 }
 
-const Filter:FC<filterProps> = ({filter, setFilter}) => {
+const Filter:FC<FilterProps> = ({filter, setFilter}) => {
     return (
         <div className= 'filter'>
             <MyInput

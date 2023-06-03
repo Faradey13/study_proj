@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {IPost} from "../types/types";
 import MyButton from "./UI/Button/MyButton";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export interface PostItemProps {
 
@@ -13,11 +13,11 @@ export interface PostItemProps {
     remove?: (arg0: IPost) => void;
 }
 
-const PostItem: FC<PostItemProps> = ({ title, body,  remove, post,number }) => {
+const PostItem: FC<PostItemProps> = ({title, body, remove, post, number}) => {
     const navigate = useNavigate()
 
     return (
-        <div  className='post'>
+        <div className='post'>
             <div className='post_content'>
                 <h1>
                     {post.id}.{title}
@@ -25,8 +25,8 @@ const PostItem: FC<PostItemProps> = ({ title, body,  remove, post,number }) => {
                 <div>{body}</div>
             </div>
             <div>
-                <MyButton onClick={()=>navigate(`/posts/${post.id}`)}  children={'Открыть'}/>
-                <MyButton onClick={()=> remove && remove(post)} children={'Удалить'}/>
+                <MyButton onClick={() => navigate(`/posts/${post.id}`)} children={'Открыть'}/>
+                <MyButton onClick={() => remove && remove(post)} children={'Удалить'}/>
             </div>
         </div>
     );

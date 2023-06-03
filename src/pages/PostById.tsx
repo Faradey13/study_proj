@@ -6,28 +6,27 @@ import Loader from "../components/UI/Loader/Loader";
 import {IComment, IPost} from "../types/types";
 
 
+const PostById: FC = () => {
+    const params = useParams()
 
-const PostById:FC= () => {
-   const params = useParams()
+    const [post, setPost] = useState<IPost>()
 
-    const[post, setPost] = useState<IPost>()
-
-    const[comment, setComment] = useState<IComment[]>()
+    const [comment, setComment] = useState<IComment[]>()
 
     const [fetchPostById, isLoadingPostId, errorPostId] = useFetching(async () => {
         const response = await PostService.getPostById(params.id)
         setPost(response.data)
     })
 
-    const[fetchComment, isLoadingComment, errorComment] = useFetching(async ()  => {
+    const [fetchComment, isLoadingComment, errorComment] = useFetching(async () => {
         const response = await PostService.getCommentById(params.id)
         setComment(response.data)
     })
 
-    useEffect(()=> {
+    useEffect(() => {
         fetchPostById()
         fetchComment()
-    },[])
+    }, [])
 
     return (
         <div>

@@ -1,4 +1,4 @@
-import React, {FC, ReactHTMLElement, ReactNode, SetStateAction} from 'react';
+import React, {FC, ReactNode, SetStateAction} from 'react';
 import cl from './modal.module.css'
 
 export interface ModalProps {
@@ -9,7 +9,7 @@ export interface ModalProps {
 }
 
 
-const Modal:FC<ModalProps> = ({visible, setVisible,children}) => {
+const Modal: FC<ModalProps> = ({visible, setVisible, children}) => {
 
     const rootStyles = [cl.modal]
 

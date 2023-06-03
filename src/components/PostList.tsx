@@ -13,10 +13,10 @@ const PostList:FC<PostListProps> = ({posts, title, remove}) => {
     return (
         <div>
             <h1>{title}</h1>
-            <TransitionGroup >
-            {
-                posts.map((post, index) =>
-                    <CSSTransition
+            <TransitionGroup>
+                {
+                    posts.map((post, index) =>
+                        <CSSTransition
                         key={post.id}
                         timeout={500}
                         classNames="post"

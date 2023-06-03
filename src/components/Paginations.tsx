@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import MyButton from "./UI/Button/MyButton";
+
 
 export interface PaginationsProps {
     pagesArray: number[];

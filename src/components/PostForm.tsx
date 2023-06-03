@@ -1,7 +1,7 @@
-import React, {ButtonHTMLAttributes, FC, MouseEventHandler, useState} from 'react';
+import React, {FC, MouseEventHandler, useState} from 'react';
 import MyInput from "./UI/Input/MyInput";
 import MyButton from "./UI/Button/MyButton";
-import {IFilter, IPost} from "../types/types";
+import {IPost} from "../types/types";
 
 export interface PostFormProps {
     create: (arg0: IPost)=> void
