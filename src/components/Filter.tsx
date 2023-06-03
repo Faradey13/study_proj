@@ -17,8 +17,7 @@ const Filter:FC<filterProps> = ({filter, setFilter}) => {
                 value={filter.query}
                 onChange={e => setFilter({...filter, query: e.target.value as keyof IPost})}
             />
-            <MySelect styleComponent={{width: '200px', color: 'teal'}}
-
+            <MySelect
                 defaultValue={'поиск по'}
                 options={[{value: 'title', name: 'по заголовку'},
                     {value: 'body', name: 'по содержимому'},

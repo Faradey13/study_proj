@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, SetStateAction, useEffect, useRef, useState} from 'react';
 import {IFilter, IPost} from "../types/types";
 
 
@@ -16,6 +16,8 @@ import {getTotalPages} from "../util/pages";
 import {usePaginations} from "../components/hooks/usePaginations";
 import classes from "../components/UI/Button/ButtonStyle.module.css";
 import Paginations from "../components/Paginations";
+import {useObserve} from "../components/hooks/useObserve";
+import MySelect from "../components/UI/Select/MySelect";
 
 const PostsPage: FC = () => {
     const [posts, setPosts] = useState<IPost[]>([])
@@ -26,13 +28,13 @@ const PostsPage: FC = () => {
     const[limit, setLimit] = useState<number>(10)
     const[page, setPage] = useState<number>(1)
 
-    const lastElement = useRef<HTMLDivElement | null>(null)
-    const observer = useRef<IntersectionObserver | null>(null);
+    const lastElement = useRef(null)
+
 
 
 
     const searchedAndSortedPosts = usePosts({sort: filter.sort, query: filter.query, posts: posts})
-    const [fetchPosts, isLoading, isError] = useFetching(async () => {
+    const [fetchPosts, isLoading, isError] = useFetching(async (limit: number, page: number) => {
         const response = await PostService.getAll(limit, page)
         const totalCount = response.headers['x-total-count']
         setTotalPage(getTotalPages(limit, totalCount))
@@ -41,21 +43,13 @@ const PostsPage: FC = () => {
 
     const pagesArray = usePaginations(totalPage)
 
-    useEffect(() => {
-
-        const callback = function(entries, observer) {
-
-        };
-        observer.current = new IntersectionObserver(callback, callback);
-        observer.current.observe(lastElement)
-
-
-    },[])
+    useObserve(isLoading, page < totalPage, lastElement, () => {setPage(page+1)})
 
 
     useEffect(() => {
-        fetchPosts()
-    },[page])
+        fetchPosts(limit ,page)
+        console.log(limit)
+    },[page, limit])
 
 
     const removePost = (post: IPost)   => {
@@ -76,8 +70,14 @@ const PostsPage: FC = () => {
             <Filter filter={filter} setFilter={setFilter} />
             <Modal visible={modal} setVisible={setModal} children={<PostForm create={createPost}/>}/>
             <MyButton  onClick={() => setModal(true)} children={"Создать пост"}/>
-            <Paginations pagesArray={pagesArray} changePage={changePage} page={page}/>
+            <MySelect defaultValue={"Показывать по:"} value={limit} onChange={event  => setLimit(event.target.value)} options={[
+                {value: 5, name: '5'},
+                {value: 10, name: '10'},
+                {value: 25, name: '25'},
+                {value: -1, name: 'Показать все'},
+            ]} />
             <PostList remove={removePost} posts={searchedAndSortedPosts} title={"Список постов"}/>
+            <Paginations pagesArray={pagesArray} changePage={changePage} page={page}/>
             <div ref={lastElement}></div>
 
 
